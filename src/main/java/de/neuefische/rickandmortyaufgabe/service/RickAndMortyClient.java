@@ -2,10 +2,6 @@ package de.neuefische.rickandmortyaufgabe.service;
 
 import de.neuefische.rickandmortyaufgabe.model.Character;
 import de.neuefische.rickandmortyaufgabe.repo.CharacterRepo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,6 +15,11 @@ public class RickAndMortyClient {
     public List<Character> allCharacters() {
         return characterRepo.allCharacters();
     }
+
+        public List<Character> allCharactersAlive() {
+            return characterRepo.allCharactersAlive();
+        }
+
 
         //Client
         WebClient webClient = WebClient.create("https://rickandmortyapi.com");
@@ -34,6 +35,19 @@ public class RickAndMortyClient {
                     .getBody();
 
             return characters;
+
+        }
+
+        public CharacterRepo getAllCharactersAlive () {
+            CharacterRepo aliveCharacters = webClient.get()
+                    .uri("/api/character/?status=alive")
+                    .header("Authorization", "Bearer lkjasdflkj")
+                    .retrieve()
+                    .toEntity(CharacterRepo.class)
+                    .block()
+                    .getBody();
+
+            return aliveCharacters;
         }
 
     }

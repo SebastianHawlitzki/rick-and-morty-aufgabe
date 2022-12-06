@@ -20,8 +20,12 @@ public class CharacterRepo {
 
 
     //get all characters
-    public List<Character> allCharacters(){
+    public List<Character> allCharacters() {
         return this.results;
     }
 
+    //get alive characters
+    public List<Character> allCharactersAlive() {
+        return this.results;
+    }
 }
