@@ -16,6 +16,8 @@ public class RickAndMortyClient {
         return characterRepo.allCharacters();
     }
 
+
+
         public List<Character> allCharactersAlive() {
             return characterRepo.allCharactersAlive();
         }
@@ -25,9 +27,18 @@ public class RickAndMortyClient {
         WebClient webClient = WebClient.create("https://rickandmortyapi.com");
 
 
-        public CharacterRepo getAllCharacters () {
+        public CharacterRepo getAllCharacters (String status) {
+
+            String allCharacters;
+
+            if (status == null) {
+                allCharacters = "/api/character";
+            } else {
+                allCharacters = "/api/character/?status=alive";
+            }
+
             CharacterRepo characters = webClient.get()
-                    .uri("/api/character")
+                    .uri(allCharacters)
                     .header("Authorization", "Bearer lkjasdflkj")
                     .retrieve()
                     .toEntity(CharacterRepo.class)

@@ -3,10 +3,7 @@ package de.neuefische.rickandmortyaufgabe.controller;
 import de.neuefische.rickandmortyaufgabe.repo.CharacterRepo;
 import de.neuefische.rickandmortyaufgabe.service.RickAndMortyClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/character")
@@ -15,14 +12,13 @@ public class RickAndMortyController {
 
     private final RickAndMortyClient rickAndMortyClient;
 
-    @GetMapping
-    public CharacterRepo results() {
-        return rickAndMortyClient.getAllCharacters();
-    }
 
-    @GetMapping("{status}")
-    public CharacterRepo resultsAlive(@PathVariable String status) {
-        return rickAndMortyClient.getAllCharactersAlive();
+
+    @GetMapping()
+    public CharacterRepo resultsAlive(@RequestParam(required = false) String status) {
+        return rickAndMortyClient.getAllCharacters(status);
 
     }
+
+
 }
